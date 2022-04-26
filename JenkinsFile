@@ -1,0 +1,26 @@
+node {
+    stage('prepare env') {
+        git 'https://github.com/hbraha/spring-petclinic.git'
+        bat 'mvnw clean'
+    }
+    stage('Build') {
+        bat 'mvnw compile'
+    }
+    stage('Test'){
+        bat 'mvnw test'
+    }
+    stage('pack'){
+        bat 'mvnw package'
+        
+    }
+    stage('build docker image'){
+        bat "docker build --tag spring-image ."
+        bat "docker save --output tmp-image.docker spring-image"
+
+    }
+    stage('collect artifacts'){
+        archiveArtifacts 'target/*.jar'
+        archiveArtifacts 'tmp-image.docker'
+        bat 'del tmp-image.docker'
+    }
+}
