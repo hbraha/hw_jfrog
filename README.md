@@ -1,7 +1,7 @@
 prerequisites:
-install Jenkins
-installed docker
-installed Java and Maven
+- installed Jenkins
+- installed docker
+- installed Java and Maven
 
 running the project:
 1. go to Jenkins Dashboard --> new item and choose pipeline.
